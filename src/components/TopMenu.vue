@@ -12,12 +12,14 @@
     </div>
     <div class="bottom">
       <div v-for="(item, index) in news" :key="item" class="item-news">
-        <div class="news-image-container">
-          <image :src="item.image" resize="cover" class="news-image"></image>
-        </div>
-        <text class="news-title">{{item.title}}</text>
-        <div class="news-detail-icon">
-          <image src="../assets/images/icon-more.png" class="news-detail"></image>
+        <div class="item-news-inner">
+          <div class="news-image-container">
+            <image :src="item.image" resize="cover" class="news-image"></image>
+          </div>
+          <text class="news-title">{{item.title}}</text>
+          <div class="news-detail-icon">
+            <image src="../assets/images/icon-more.png" class="news-detail"></image>
+          </div>
         </div>
       </div>
     </div>
@@ -31,7 +33,7 @@
     min-height: 100px;
     background-color: #ffffff;
     align-items: center;
-    padding: 0 30px;
+    padding: 0;
   }
   .top {
     width: 690px;
@@ -72,23 +74,25 @@
     text-align: center;
   }
   .bottom {
-    width: 690px;
+    width: 750px;
     /*height: 200px;*/
   }
   .item-news {
-    width: 690px;
+    width: 750px;
     height: 200px;
+    padding-left: 30px;
+  }
+  .item-news:active {
+    background-color: #e5e5e5;
+  }
+  .item-news-inner {
+    width: 690px;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    border-top-width: 1px;
-    border-top-style: solid;
-    border-top-color: red;
-  }
-  .first-item-news {
-    border-top-width: 1px;
-    border-top-style: solid;
-    border-top-color: green;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #f5f5f5;
   }
   .news-image-container {
     width: 128px;
@@ -158,11 +162,6 @@
           }
         ],
         news: [
-          {
-            image: 'http://static.dei2.com/imgs/128*128.png',
-            title: '来智联找工作，实现人生巅峰妥妥哒~',
-            href: ''
-          },
           {
             image: 'http://static.dei2.com/imgs/128*128.png',
             title: '来智联找工作，实现人生巅峰妥妥哒~',
