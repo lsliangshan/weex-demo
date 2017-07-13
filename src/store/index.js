@@ -53,6 +53,9 @@ const store = new Vuex.Store({
     },
     topMenu: {
       shown: true
+    },
+    hotRecruitment: {
+      shown: true
     }
   }
 })

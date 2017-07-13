@@ -29,6 +29,12 @@
         <top-menu v-if="state.topMenu.shown"></top-menu>
       </transition>
       <!-- 顶部分类菜单 -->
+
+      <!-- 名企热招 -->
+      <transition name="hot-recruitment-transition" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+        <hot-recruitment v-if="state.hotRecruitment.shown"></hot-recruitment>
+      </transition>
+      <!-- 名企热招 -->
     </scroller>
   </div>
 </template>
@@ -77,6 +83,7 @@
 <script>
   import Banner from './components/Banner.vue'
   import TopMenu from './components/TopMenu.vue'
+  import HotRecruitment from './components/HotRecruitment.vue'
   export default {
     data () {
       return {
@@ -115,7 +122,8 @@
     },
     components: {
       Banner,
-      TopMenu
+      TopMenu,
+      HotRecruitment
     }
   }
 </script>

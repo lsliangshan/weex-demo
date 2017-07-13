@@ -126,7 +126,6 @@
 
 <script>
   export default {
-    props: ['dataImages', 'indicatorStyle', 'sliderStyle'],
     data () {
       return {
         topMenus: [
