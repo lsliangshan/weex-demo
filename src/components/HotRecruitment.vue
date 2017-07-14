@@ -1,14 +1,12 @@
 <template>
   <div class="hot-recruitment-container">
-    <text class="title">名企热招</text>
+    <text class="title">{{ dataTitle ||'名企热招' }}</text>
     <div class="hot-recruitment-items">
-      <div v-for="(item, index) in hotRecruitment" :key="item" class="item-hot-recruitment">
-        <!--<div class="image-container" :style="{'height': item.style.height+'px', 'width': item.style.width+'px'}" :ref="'hotRecruitmentImageContainer' + index">-->
-          <!--<image :src="item.image" resize="cover" :style="{'height': item.style.height+'px', 'width': item.style.width+'px'}" :ref="'hotRecruitmentImage' + index" @load="imageLoaded($event, index)"></image>-->
-        <!--</div>-->
-
-        <div class="image-container">
-          <image :src="item.image" resize="cover" :style="{'height': item.style.height+'px', 'width': getWidth(item.col)+'px'}"></image>
+      <div v-for="(items, index) in formatRecruitment" :key="items" class="item-hot-recruitment-row">
+        <div v-for="(item, idx) in items" :key="items" class="item-hot-recruitment" :class="['item-hot-recruitment-' + idx]">
+          <div class="image-container">
+            <image :src="item.image" resize="cover" :style="{'height': item.height+'px', 'width': getWidth(item.col)+'px'}"></image>
+          </div>
         </div>
       </div>
     </div>
@@ -33,112 +31,91 @@
   .hot-recruitment-items {
     width: 750px;
     min-height: 100px;
+  }
+  .item-hot-recruitment-row {
+    margin-top: 15px;
     flex-direction: row;
-    justify-content: space-between;
   }
   .item-hot-recruitment {
-    /*flex:1;*/
-    /*display: inline-flex;*/
+    margin-left: 15px;
   }
-  .image-container {
-    /*float: left;*/
-    /*flex: 1;*/
+  .item-hot-recruitment-0 {
+    margin-left: 0;
   }
-  /*.item-hot-recruitment-1 {*/
-    /*width: 250px;*/
-    /*height: 250px;*/
-  /*}*/
-  /*.image-container-1 {*/
-    /*width: 250px;*/
-    /*height: 250px;*/
-  /*}*/
-  /*.image-1 {*/
-    /*width: 250px;*/
-    /*!*height: 250px;*!*/
-  /*}*/
-  /*.item-hot-recruitment-2 {*/
-    /*width: 500px;*/
-    /*background-color: red;*/
-  /*}*/
-  /*.image-container-2 {*/
-    /*width: 500px;*/
-  /*}*/
-  /*.image-2 {*/
-    /*width: 500px;*/
-    /*min-height: 100px;*/
-    /*!*height: 250px;*!*/
-  /*}*/
-  /*.item-hot-recruitment-3 {*/
-    /*width: 750px;*/
-  /*}*/
-  /*.image-container-3 {*/
-    /*width: 750px;*/
-  /*}*/
-  /*.image-3 {*/
-    /*width: 750px;*/
-  /*}*/
 </style>
 
 <script>
-  var modal = weex.requireModule('modal')
-  const dom = weex.requireModule('dom')
   export default {
+    props: ['dataTitle'],
     data () {
       return {
         hotRecruitment: [
-//          {
-//            image: 'http://static.dei2.com/imgs/500*250.png',
-//            title: '',
-//            col: 2,
-//            style: {
-//              height: 250
-//            }
-//          },
-//          {
-//            image: 'http://static.dei2.com/imgs/250*250.png',
-//            title: '高薪厚职',
-//            col: 1,
-//            style: {
-//              height: 250
-//            }
-//          }
-//          ,
           {
-            image: 'http://static.dei2.com/imgs/250*200.png',
-            title: '',
+            image: 'http://static.dei2.com/imgs/500*250.png',
+            col: 2,
+            height: 250,
+            href: ''
+          },
+          {
+            image: 'http://static.dei2.com/imgs/250*250.png',
             col: 1,
-            style: {
-              height: 200
-            }
+            height: 250,
+            href: ''
           },
           {
             image: 'http://static.dei2.com/imgs/250*200.png',
-            title: '',
             col: 1,
-            style: {
-              height: 200
-            }
+            height: 200,
+            href: ''
           },
           {
             image: 'http://static.dei2.com/imgs/250*200.png',
-            title: '',
             col: 1,
-            style: {
-              height: 200
-            }
+            height: 200,
+            href: ''
+          },
+          {
+            image: 'http://static.dei2.com/imgs/250*200.png',
+            col: 1,
+            height: 200,
+            href: ''
           }
         ]
       }
     },
+    computed: {
+      formatRecruitment () {
+        let out = []
+        let _hotRecruitment = this.hotRecruitment
+        let i = 0
+        let tempCol = 0
+        let tempRecruitment
+        let tempArr = []
+        for (i; i < _hotRecruitment.length; i++) {
+          tempRecruitment = _hotRecruitment[i]
+          if (tempCol + Number(tempRecruitment.col) < 3) {
+            tempCol += Number(tempRecruitment.col)
+            tempArr.push(tempRecruitment)
+          } else if (tempCol + Number(tempRecruitment.col) === 3) {
+            tempArr.push(tempRecruitment)
+            out.push(JSON.parse(JSON.stringify(tempArr)))
+            tempArr = []
+            tempCol = 0
+          } else {
+            out.push(JSON.parse(JSON.stringify(tempArr)))
+            tempArr = [tempRecruitment]
+            tempCol = Number(tempRecruitment.col)
+          }
+        }
+        if (tempCol !== 0 || tempArr.length !== 0) {
+          out.push(JSON.parse(JSON.stringify(tempArr)))
+          tempArr = []
+          tempCol = 0
+        }
+        return out
+      }
+    },
     methods: {
-      showAlert (text) {
-        modal.alert({
-          message: text,
-          duration: 0.3
-        }, function (value) {
-          console.log('alert callback', value)
-        })
-      },
       getWidth (type) {
         let _width = 0
         switch (Number(type)) {
@@ -155,32 +132,6 @@
             break
         }
         return _width
-      },
-      imageLoaded (e, idx) {
-        let _parent = this.$refs['hotRecruitmentImageContainer' + idx]
-//        dom.getComponentRect(_parent, option => {
-//          this.showAlert(JSON.stringify(option))
-//        })
-        _parent.style.height = e.size.naturalHeight + 'px'
-        _parent.style.width = e.size.naturalWidth + 'px'
-        let _self = this.$refs['hotRecruitmentImage' + idx][0]
-        _self.style.height = e.size.naturalHeight + 'px'
-        _self.style.width = e.size.naturalWidth + 'px'
-//        this.showAlert(JSON.stringify(this.$refs['hotRecruitmentImage' + idx]))
-      }
-    },
-    directives: {
-      'initSize': {
-        inserted: function (el, binding, vnode) {
-//          let img = new Image()
-//          img.src = binding.value
-//          img.onload = function () {
-//            let _parent = el.parentNode
-//            _parent.style.height = img.height + 'px'
-//            el.style.height = img.height + 'px'
-//          }
-//          vnode.context.showAlert(binding.value)
-        }
       }
     }
   }

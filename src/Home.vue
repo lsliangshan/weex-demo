@@ -32,7 +32,7 @@
 
       <!-- 名企热招 -->
       <transition name="hot-recruitment-transition" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
-        <hot-recruitment v-if="state.hotRecruitment.shown"></hot-recruitment>
+        <hot-recruitment v-if="state.hotRecruitment.shown" :data-title="'名企热招'"></hot-recruitment>
       </transition>
       <!-- 名企热招 -->
     </scroller>
