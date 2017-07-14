@@ -121,6 +121,7 @@
   const animation = weex.requireModule('animation')
   const dom = weex.requireModule('dom')
   var modal = weex.requireModule('modal')
+  var navigator = weex.requireModule('navigator')
   export default {
     data () {
       return {
@@ -190,6 +191,14 @@
           duration: 0.3
         }, function (value) {
           console.log('alert callback', value)
+        })
+      },
+      redirectTo (url) {
+//        this.$router.push(url)
+        navigator.push({
+          url: '/#/profile',
+          animated: "true"
+        }, event => {
         })
       }
     },

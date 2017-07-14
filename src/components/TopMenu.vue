@@ -2,7 +2,7 @@
   <div class="top-menu-container">
     <div class="top">
       <scroller class="top-scroller" scroll-direction="horizontal">
-        <div class="item-menu" v-for="(menu, index) in topMenus" :key="menu">
+        <div class="item-menu" v-for="(menu, index) in topMenus" :key="menu" @click="redirectTo('profile')">
           <div class="menu-image-container">
             <image class="menu-image" resize="cover" :src="menu.image"></image>
           </div>
@@ -175,6 +175,9 @@
     methods: {
       getDefaultImage (width, height, text, color, bgColor) {
         return 'http://iph.href.lu/' + width + '*' + height + (!!text ? 'text=' + text : '') + (!!color ? 'fg=' + (color.substring(1)) : '') + (!!bgColor ? 'bg=' + (bgColor.substring(1)) : '')
+      },
+      redirectTo (url) {
+        this.$parent.redirectTo(url)
       }
     }
   }

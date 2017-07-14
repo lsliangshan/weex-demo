@@ -117,6 +117,7 @@
   }
   .item-message-inner {
     width: 690px;
+    margin-left: 30px;
     padding-top: 30px;
     padding-bottom: 30px;
     flex-direction: row;

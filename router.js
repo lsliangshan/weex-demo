@@ -37,6 +37,7 @@
 import Router from 'vue-router'
 import Home from './src/Home.vue'
 import NotFound from './src/404.vue'
+import Profile from './src/pages/Profile.vue'
 
 Vue.use(Router)
 
@@ -45,6 +46,10 @@ export default new Router({
     {
       path: '/',
       component: Home
+    },
+    {
+      path: '/profile',
+      component: Profile
     },
     {
       path: '*',
