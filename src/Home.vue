@@ -47,6 +47,12 @@
         <hot-subject v-if="state.hotSubject.shown" :data-title="'热门学科'"></hot-subject>
       </transition>
       <!-- 热门学科 -->
+
+      <!-- 学长对你说（留言区）-->
+      <transition name="feedback-transition" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+        <feedback v-if="state.feedback.shown" :data-title="'学长对你说'"></feedback>
+      </transition>
+      <!-- 学长对你说（留言区）-->
     </scroller>
   </div>
 </template>
@@ -98,6 +104,7 @@
   import HotRecruitment from './components/HotRecruitment.vue'
   import HotIndustry from './components/HotIndustry.vue'
   import HotSubject from './components/HotSubject.vue'
+  import Feedback from './components/Feedback.vue'
   export default {
     data () {
       return {
@@ -139,7 +146,8 @@
       TopMenu,
       HotRecruitment,
       HotIndustry,
-      HotSubject
+      HotSubject,
+      Feedback
     }
   }
 </script>

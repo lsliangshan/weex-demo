@@ -62,6 +62,9 @@ const store = new Vuex.Store({
     },
     hotSubject: {
       shown: true
+    },
+    feedback: {
+      shown: true
     }
   }
 })
