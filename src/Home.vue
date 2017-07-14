@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <scroller class="home-scroller">
+    <scroller class="home-scroller" offset-accuracy="10" @scroll="mainScroll">
       <!-- 顶部Banner -->
       <transition name="banner-transition"
                   enter-active-class="animated fadeIn"
@@ -14,11 +14,13 @@
       <!-- 顶部Banner -->
 
       <!-- 顶部搜索框 -->
-      <div class="main-search">
-        <div class="search-icon-container">
-          <image class="search-icon" src="../assets/images/icon-search.png"></image>
+      <div class="main-search" :class="['main-search-fixed-' + fixSearch]" ref="mainSearch">
+        <div class="main-search-inner">
+          <div class="search-icon-container">
+            <image class="search-icon" src="../assets/images/icon-search.png"></image>
+          </div>
+          <input type="text" class="search" placeholder="搜索你感兴趣的职位" return-key-type="search"/>
         </div>
-        <input type="text" class="search" placeholder="搜索你感兴趣的职位" return-key-type="search"/>
       </div>
       <!-- 顶部搜索框 -->
 
@@ -62,11 +64,21 @@
     /*background-color: cyan;*/
   }
   .main-search {
+    width: 750px;
+    height: 100px;
+    background-color: transparent;
+    margin-top: -48px;
+  }
+  .main-search-fixed-true {
+    position: sticky;
+    top: 0;
+    left: 0;
+  }
+  .main-search-inner {
     width: 600px;
     height: 100px;
     background-color: #ffffff;
     /*position: absolute;*/
-    margin-top: -48px;
     margin-left: 75px;
     border: 1px solid #ccc;
     box-shadow: 0 0 10px 5px #ccc;
@@ -105,6 +117,10 @@
   import HotIndustry from './components/HotIndustry.vue'
   import HotSubject from './components/HotSubject.vue'
   import Feedback from './components/Feedback.vue'
+
+  const animation = weex.requireModule('animation')
+  const dom = weex.requireModule('dom')
+  var modal = weex.requireModule('modal')
   export default {
     data () {
       return {
@@ -129,6 +145,15 @@
             bottom: '50px',
             width: '750px'
           }
+        },
+        fixSearch: false,
+        mainSearchStyle: {
+          width: 0,
+          height: 0,
+          left: 0,
+          top: 0,
+          bottom: 0,
+          right: 0
         }
       }
     },
@@ -138,8 +163,35 @@
       }
     },
     mounted () {
+      dom.getComponentRect(this.$refs.mainSearch, option => {
+        this.mainSearchStyle = option.size
+      })
     },
     methods: {
+      mainScroll (evt) {
+        if (evt.contentOffset.y < -this.mainSearchStyle.top) {
+          this.fixSearch = true
+          animation.transition(this.$refs.mainSearch, {
+            styles: {
+              backgroundColor: '#ffffff'
+            },
+            duration: 800, //ms
+            timingFunction: 'ease',
+            delay: 0 //ms
+          }, function () {
+          })
+        } else {
+          this.fixSearch = false
+        }
+      },
+      showAlert (text) {
+        modal.alert({
+          message: text,
+          duration: 0.3
+        }, function (value) {
+          console.log('alert callback', value)
+        })
+      }
     },
     components: {
       Banner,
