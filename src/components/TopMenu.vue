@@ -54,6 +54,9 @@
     /*height: 300px;*/
     /*background-color: cyan;*/
   }
+  .item-menu:active {
+    background-color: #e5e5e5;
+  }
   .menu-image-container {
     width: 172px;
     height: 172px;

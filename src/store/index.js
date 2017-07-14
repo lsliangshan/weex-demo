@@ -59,6 +59,9 @@ const store = new Vuex.Store({
     },
     hotIndustry: {
       shown: true
+    },
+    hotSubject: {
+      shown: true
     }
   }
 })

@@ -41,6 +41,12 @@
         <hot-industry v-if="state.hotIndustry.shown" :data-title="'热门行业'"></hot-industry>
       </transition>
       <!-- 热门行业 -->
+
+      <!-- 热门学科 -->
+      <transition name="hot-subject-transition" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+        <hot-subject v-if="state.hotSubject.shown" :data-title="'热门学科'"></hot-subject>
+      </transition>
+      <!-- 热门学科 -->
     </scroller>
   </div>
 </template>
@@ -91,6 +97,7 @@
   import TopMenu from './components/TopMenu.vue'
   import HotRecruitment from './components/HotRecruitment.vue'
   import HotIndustry from './components/HotIndustry.vue'
+  import HotSubject from './components/HotSubject.vue'
   export default {
     data () {
       return {
@@ -131,7 +138,8 @@
       Banner,
       TopMenu,
       HotRecruitment,
-      HotIndustry
+      HotIndustry,
+      HotSubject
     }
   }
 </script>

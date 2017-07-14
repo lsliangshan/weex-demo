@@ -42,6 +42,9 @@
     margin-right: 30px;
     background-color: #fff;
   }
+  .item-industry-container:active {
+    background-color: #eee;
+  }
   .industry-image-container {
     width: 240px;
     height: 180px;
