@@ -196,7 +196,7 @@
       redirectTo (url) {
 //        this.$router.push(url)
         navigator.push({
-          url: '/#/profile',
+          url: url,
           animated: "true"
         }, event => {
         })
